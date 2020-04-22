@@ -1,0 +1,16 @@
+.animated-route {
+  position: relative;
+  animation-name: animateroute;
+  animation-duration: 1s;
+}
+
+@keyframes animateroute {
+  from {
+    left: -100px;
+    opacity: 0;
+  }
+  to {
+    left: 0;
+    opacity: 1;
+  }
+}

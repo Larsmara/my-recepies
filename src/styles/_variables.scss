@@ -1,0 +1,24 @@
+/* Colors */
+$primary: #2196f3;
+$primary-light: #bbdefb;
+$primary-dark: #1976d2;
+$secondary: #9e9e9e;
+$secondary-light: #bdbdbd;
+$secondary-dark: #757575;
+$error: #f44336;
+$error-light: #f3655b;
+$error-dark: #d32f2f;
+
+$background: #f4f4f4;
+
+$card-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+$card-shadow-hover: 0 8px 8px 0 rgba(0, 0, 0, 0.2);
+
+/* Set Text Color */
+@function set-text-color($color) {
+  @if (lightness($color) > 60) {
+    @return #000;
+  } @else {
+    @return #fff;
+  }
+}

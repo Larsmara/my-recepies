@@ -1,0 +1,18 @@
+/* Recipe Grid */
+.recipe-grid-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+}
+
+@media (max-width: 800px) {
+  .recipe-grid-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .recipe-grid-list {
+    grid-template-columns: 1fr;
+  }
+}

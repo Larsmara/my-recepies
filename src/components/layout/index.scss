@@ -1,0 +1,103 @@
+@import "../../styles/variables";
+/* Layout */
+.grid-layout {
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 20rem 1fr 1fr;
+  grid-template-rows: 5rem 1fr 1fr;
+  grid-template-areas:
+    "navbar navbar navbar"
+    "aside content content"
+    "aside content content";
+}
+
+/* Navbar */
+.navbar {
+  grid-area: navbar;
+  display: flex;
+  justify-content: space-between;
+  background: $primary-dark;
+  align-items: center;
+  padding: 0 2rem;
+  color: set-text-color($primary-dark);
+  z-index: 2;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.75);
+}
+
+.navbar .left a {
+  font-size: 2rem;
+}
+
+.navbar .right a {
+  font-size: 1.6rem;
+}
+
+.navbar a {
+  color: set-text-color($primary);
+}
+
+/* Left Menu */
+.left-menu {
+  grid-area: aside;
+  background: $background;
+  padding-top: 1rem;
+  box-shadow: 0.2px 0px 3px 0px rgba(0, 0, 0, 0.75);
+  z-index: 1;
+}
+
+.left-menu ul li a {
+  display: inline-block;
+  width: 100%;
+  font-size: 1.6rem;
+  padding-left: 4rem;
+  padding-top: 1.3rem;
+  padding-bottom: 1rem;
+  color: set-text-color($background);
+}
+
+.left-menu li a:hover {
+  background: #e2e2e2;
+  color: set-text-color(#dbdbdb);
+}
+
+/* Main content */
+.content {
+  grid-area: content;
+  background: $background;
+  overflow: auto;
+  padding: 2rem;
+}
+
+.footer {
+  grid-area: footer;
+  background: #d6d6d6;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid-layout {
+    display: grid;
+    height: 100vh;
+    grid-template-areas:
+      "navbar navbar navbar"
+      "content content content"
+      "content content content";
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 5rem;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  .content {
+    height: 2000px;
+    overflow-y: auto;
+  }
+
+  .left-menu {
+    display: none;
+  }
+}
