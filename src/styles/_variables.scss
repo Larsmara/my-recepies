@@ -1,15 +1,31 @@
 /* Colors */
-$primary: #2196f3;
-$primary-light: #bbdefb;
-$primary-dark: #1976d2;
-$secondary: #9e9e9e;
-$secondary-light: #bdbdbd;
-$secondary-dark: #757575;
+$primary: #3f51b5;
+$primary-light: #7986cb;
+$primary-dark: #303f9f;
+
+$secondary: #f50057;
+$secondary-light: #ff4081;
+$secondary-dark: #c51162;
+
 $error: #f44336;
-$error-light: #f3655b;
+$error-light: #e57373;
 $error-dark: #d32f2f;
 
+$warning: #ff9800;
+$warning-light: #ffb74d;
+$warning-dark: #f57c00;
+
+$info: #2196f3;
+$info-light: #64b5f6;
+$info-dark: #1976d2;
+
+$success: #4caf50;
+$success-light: #81c784;
+$success-dark: #388e3c;
+
 $background: #f4f4f4;
+
+$light-grey: rgba(51, 51, 51, 0.247);
 
 $card-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
 $card-shadow-hover: 0 8px 8px 0 rgba(0, 0, 0, 0.2);

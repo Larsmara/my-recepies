@@ -1,8 +1,12 @@
 import React from "react";
-import { Layout } from "../components";
+import { Layout, Card, RecipesList } from "../components";
 
 const FavoritesPage = () => {
-  return <Layout>FAvorites</Layout>;
+  return (
+    <Layout title='My Favorite Recipes'>
+      <RecipesList />
+    </Layout>
+  );
 };
 
 export default FavoritesPage;

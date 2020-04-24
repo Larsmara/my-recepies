@@ -1,7 +1,9 @@
 import React from "react";
 import "./index.scss";
+import { BsStar, BsStarFill } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
-const Card = ({ recipe }) => {
+const Card = ({ recipe, id }) => {
   return (
     <div className='card'>
       <header className='card-header'>
@@ -56,14 +58,10 @@ const Card = ({ recipe }) => {
       </main>
 
       <footer className='card-footer'>
-        <div className='set-favorite'>
-          {recipe && recipe.starred ? (
-            <i className='fas fa-star'></i>
-          ) : (
-            <i className='far fa-star'></i>
-          )}
-        </div>
-        <button className='view-recipe btn btn-primary'>View Recipe</button>
+        <div className='set-favorite'>{recipe && recipe.starred ? <BsStarFill /> : <BsStar />}</div>
+        <Link className='view-recipe btn btn-primary' to={`/recipe/${id}`}>
+          View Recipe
+        </Link>
       </footer>
     </div>
   );

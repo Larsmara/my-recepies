@@ -8,14 +8,8 @@ import "./index.scss";
 const AnimatedRoute = ({ requiresAuth, children, ...other }) => {
   return (
     <Route {...other}>
-      <div className='animated-route' key={other.path}>
-        {requiresAuth ? (
-          <AuthCheck fallback={<LoginPage />}>
-            <LandingPage />
-          </AuthCheck>
-        ) : (
-          children
-        )}
+      <div className='animated fadeIn fast' key={other.path}>
+        {requiresAuth ? <AuthCheck fallback={<LoginPage />}>{children}</AuthCheck> : children}
       </div>
     </Route>
   );

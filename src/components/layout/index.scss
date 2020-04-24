@@ -36,6 +36,13 @@
   color: set-text-color($primary);
 }
 
+.navbar .navButton {
+  font-size: 1.6rem;
+  color: set-text-color($primary);
+  background: none;
+  border: none;
+}
+
 /* Left Menu */
 .left-menu {
   grid-area: aside;
@@ -43,6 +50,32 @@
   padding-top: 1rem;
   box-shadow: 0.2px 0px 3px 0px rgba(0, 0, 0, 0.75);
   z-index: 1;
+}
+
+.user-box {
+  display: flex;
+  flex-direction: row;
+  padding: 2rem;
+  border-bottom: 1px solid rgba(51, 51, 51, 0.247);
+
+  img {
+    width: 5rem;
+    height: 5rem;
+  }
+
+  .user-box-info {
+    height: 100%;
+    align-self: center;
+    padding-left: 1rem;
+
+    h1 {
+      font-size: 2.2rem;
+    }
+  }
+}
+
+.left-menu ul li {
+  border-bottom: 1px solid rgba(51, 51, 51, 0.247);
 }
 
 .left-menu ul li a {
@@ -73,7 +106,7 @@
   background: #d6d6d6;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 769px) {
   .grid-layout {
     display: grid;
     height: 100vh;

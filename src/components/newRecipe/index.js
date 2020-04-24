@@ -17,6 +17,7 @@ const AddNewRecipe = ({
   return (
     <div className='new-recipe-form'>
       <div className='form'>
+        <h2 className='my-2'>Add a new recipe!</h2>
         <div className='inputgroup'>
           <label htmlFor=''>Recipe Name</label>
           <input
@@ -99,7 +100,7 @@ const AddNewRecipe = ({
           <div className='form-error my-1'>{errors.fat && "Please enter a number"}</div>
         </div>
 
-        <div className='inputgroup ingredient-list'>
+        <div className='inputgroup input-with-button'>
           <label htmlFor='inputIngredients'>Ingredients</label>
           <input
             id='inputIngredients'
@@ -138,7 +139,7 @@ const AddNewRecipe = ({
         </div>
 
         <button className='btn btn-block my-2'>Add</button>
-        <button className='btn btn-text btn-error btn-block' onClick={handleClear}>
+        <button className='btn btn-text btn-error btn-block error-text' onClick={handleClear}>
           Clear
         </button>
       </div>

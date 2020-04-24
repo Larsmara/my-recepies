@@ -2,79 +2,19 @@
 
 .new-recipe-form {
   display: flex;
-  align-items: center;
   justify-content: center;
+  height: 100%;
+  background-image: url("../../images/cooking.svg");
+  background-size: 300px 350px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom 2rem right 1rem;
 
   .form {
-    .inputgroup {
-      width: 40rem;
-      margin-bottom: 1.2rem;
-
-      label {
-        display: block;
-        font-size: 1.8rem;
-        padding-bottom: 0.5rem;
-      }
-
-      input {
-        box-sizing: border-box;
-        width: 100%;
-        font-size: 1.5rem;
-        padding: 1.5rem 1rem;
-        border-radius: 0.5rem;
-        border-bottom: 2px solid transparent;
-        box-shadow: 0px 1px 8px -5px #000000;
-
-        &:focus {
-          border-bottom: 2px solid $primary;
-        }
-
-        &:hover {
-          border-bottom: 2px solid $primary;
-        }
-      }
-
-      textarea {
-        width: 100%;
-        height: 11rem;
-        font-size: 1.5rem;
-        box-shadow: 0px 1px 8px -5px #000000;
-        border: none;
-        border-radius: 0.5rem;
-        outline: none;
-        border-bottom: 2px solid transparent;
-        box-sizing: border-box;
-        padding: 1rem 1rem;
-
-        &:focus {
-          border-bottom: 2px solid $primary;
-        }
-      }
-    }
-
-    .ingredient-list {
-      input {
-        display: inline-block;
-        width: 70%;
-        border-radius: 0;
-        border-top-left-radius: 0.5rem;
-        border-bottom-left-radius: 0.5rem;
-      }
-
-      button {
-        display: inline-block;
-        width: 30%;
-        padding: 1.5rem 1rem;
-        border-radius: 0;
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-        border-bottom: 2px solid $primary;
-        box-shadow: none;
-
-        &:hover {
-          border-bottom: 2px solid $primary-dark;
-        }
-      }
+    width: 40rem;
+    h2 {
+      font-size: 3.5rem;
+      text-align: center;
     }
   }
 }
@@ -87,4 +27,8 @@
 .form-error {
   color: $error;
   font-size: 1.6rem;
+}
+
+.error-text {
+  color: $error !important;
 }

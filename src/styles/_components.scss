@@ -56,6 +56,7 @@
 
 /* Buttons */
 .btn {
+  /* Button Base */
   padding: 1rem 2rem;
   background-color: $primary;
   color: set-text-color($primary);
@@ -63,42 +64,96 @@
   transition: 0.3s;
   box-shadow: 0px 1px 8px -5px #333;
   font-size: 1.5rem;
+  display: block;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: $primary-dark;
     color: set-text-color($primary-dark);
     cursor: pointer;
     box-shadow: 0px 1px 8px -3px #333;
   }
 
-  &:focus {
-    background-color: $primary-dark;
-    color: set-text-color($primary-dark);
-    box-shadow: 0px 1px 8px -3px #333;
+  /* COLORS */
+
+  /* Secondary */
+  &-secondary {
+    background-color: $secondary;
+    color: set-text-color($secondary);
+
+    &:hover,
+    &:focus {
+      background-color: $secondary-dark;
+      color: set-text-color($secondary-dark);
+    }
   }
 
-  &-block {
-    width: 100%;
-  }
-
-  &-text {
-    background-color: transparent;
-    color: set-text-color($background);
-    box-shadow: none;
-  }
-
+  /* Error Button */
   &-error {
-    color: $error;
+    color: set-text-color($error);
+    background-color: $error;
     box-shadow: none;
 
+    &:focus,
     &:hover {
       background-color: $error-dark;
-    }
-
-    &:focus {
-      background-color: $error-dark;
       color: set-text-color($error-dark);
-      box-shadow: 0px 1px 8px -3px #333;
     }
+  }
+
+  /* Warning */
+  &-warning {
+    background-color: $warning;
+    color: set-text-color($warning);
+
+    &:hover,
+    &:focus {
+      background-color: $warning-dark;
+      color: set-text-color($warning-dark);
+    }
+  }
+
+  /* Info */
+  &-info {
+    background-color: $info;
+    color: set-text-color($info);
+
+    &:hover,
+    &:focus {
+      background-color: $info-dark;
+      color: set-text-color($info-dark);
+    }
+  }
+
+  /* Success */
+  &-success {
+    background-color: $success;
+    color: set-text-color($success);
+
+    &:hover,
+    &:focus {
+      background-color: $success-dark;
+      color: set-text-color($success-dark);
+    }
+  }
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-text {
+  background-color: transparent;
+  color: $primary;
+  box-shadow: none;
+  text-decoration: underline;
+  padding: 0 !important;
+
+  &:hover,
+  &:focus {
+    background-color: transparent;
+    color: $primary;
+    box-shadow: none;
+    text-decoration: none;
   }
 }

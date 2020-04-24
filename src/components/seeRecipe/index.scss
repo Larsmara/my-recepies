@@ -1,0 +1,110 @@
+@import "../../styles/variables";
+
+.seeRecipe {
+  background-image: url("../../images/diet-list.svg"), url("../../images/cooking.svg");
+  background-size: 300px 350px;
+  background-repeat: no-repeat;
+  background-position: bottom -2rem left 5rem, bottom 32rem right 2rem;
+}
+
+#recipe-container {
+  display: grid;
+  grid-template-columns: 80rem;
+  margin: 2rem 0;
+  grid-gap: 1rem;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 2.5rem;
+
+      .icon {
+        cursor: pointer;
+        &:hover {
+          color: $warning;
+        }
+      }
+    }
+
+    img {
+      width: 100%;
+      height: 60rem;
+      border-radius: 0.5rem;
+      box-shadow: $card-shadow;
+    }
+  }
+
+  #information {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    ul li {
+      font-size: 1.6rem;
+      line-height: 2rem;
+    }
+  }
+
+  #description {
+    h2 {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 1.7rem;
+      line-height: 2rem;
+    }
+  }
+
+  #steps {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: $card-shadow;
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    ul li {
+      display: flex;
+      margin-top: 2rem;
+      .direction-step {
+        border: 1px solid $primary-light;
+        border-radius: 50%;
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        justify-self: center;
+        align-self: center;
+      }
+      p {
+        padding-left: 1rem;
+        display: inline-block;
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+    }
+  }
+
+  #comments {
+    h2 {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .seeRecipe {
+    background-image: none;
+  }
+  #recipe-container {
+    grid-template-columns: 1fr;
+  }
+}

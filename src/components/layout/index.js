@@ -3,14 +3,23 @@ import { useLocation, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./index.scss";
 import { useScreenSize } from "../../hooks";
+import placeholderFace from "../../images/placeholder-face.png";
+import { AuthCheck, useAuth, useFirestoreDocData, useUser, useFirestore } from "reactfire";
 
 const Layout = ({ title, children }) => {
   const { pathname } = useLocation();
   const { width } = useScreenSize();
 
+  const auth = useAuth();
+  const user = useUser();
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const signOut = () => {
+    auth.signOut().then(() => console.log("signed out"));
+  };
 
   return (
     <>
@@ -28,13 +37,28 @@ const Layout = ({ title, children }) => {
           {width > 500 && (
             <ul className='right'>
               <li>
-                <Link to='/'>Logg ut</Link>
+                <AuthCheck fallback={<Link to='/login'>Logg inn</Link>}>
+                  <button className='navButton' onClick={signOut}>
+                    Logg ut
+                  </button>
+                </AuthCheck>
               </li>
             </ul>
           )}
         </nav>
 
         <aside className='left-menu'>
+          {user && (
+            <div className='user-box'>
+              <img src={user.photoURL ? user.photoURL : placeholderFace} alt='' />
+              <div className='user-box-info'>
+                <h1>{user.displayName}</h1>
+                <Link className='btn btn-text' to={`/user/${user.uid}`}>
+                  Profile
+                </Link>
+              </div>
+            </div>
+          )}
           <ul>
             <li>
               <Link to='/'>Recipes</Link>
@@ -44,9 +68,6 @@ const Layout = ({ title, children }) => {
             </li>
             <li>
               <Link to='/favorites'>Favorites</Link>
-            </li>
-            <li>
-              <Link to='/user'>User</Link>
             </li>
           </ul>
         </aside>

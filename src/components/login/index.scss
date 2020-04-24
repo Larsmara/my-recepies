@@ -1,0 +1,70 @@
+@import "../../styles/variables";
+
+.login-form {
+  height: 100%;
+  background-image: url("../../images/forms.svg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: bottom 2rem right 1rem;
+
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+  }
+
+  form {
+    width: 40rem;
+    margin: 0 auto;
+  }
+}
+
+.register-text {
+  width: 40rem;
+}
+
+/* Social Login */
+
+.social-login {
+  width: 40rem;
+}
+
+/* Divider */
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  font-size: 2rem;
+  height: 1.5em;
+  opacity: 0.5;
+  &:before {
+    content: "";
+    // use the linear-gradient for the fading effect
+    // use a solid background color for a solid bar
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+  }
+  &:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+    color: black;
+
+    padding: 0 0.5em;
+    line-height: 1.5em;
+    // this is really the only tricky part, you need to specify the background color of the container element...
+    color: set-text-color($background);
+    background-color: $background;
+  }
+}
+
+.btn-icon-google {
+  font-size: 2rem;
+  vertical-align: middle;
+}

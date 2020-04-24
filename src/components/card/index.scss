@@ -2,6 +2,7 @@
 /* Card */
 .card {
   width: 100%;
+  max-width: 340px;
   height: auto;
   background: #fff;
   border-radius: 0.6rem;
@@ -125,8 +126,8 @@
       align-self: center;
     }
 
-    .set-favorite i:hover {
-      color: orange;
+    .set-favorite:hover {
+      color: $warning;
       cursor: pointer;
     }
   }
