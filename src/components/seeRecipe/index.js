@@ -1,89 +1,149 @@
 import React from "react";
-import "./index.scss";
-import { BsStar } from "react-icons/bs";
+import dayjs from "dayjs";
+// Components
+import LikeButton from "../likeButton/LikeButton";
+// MUI stuff
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { Avatar, Typography } from "@material-ui/core";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
 
-const SeeRecipe = () => {
+const useStyles = makeStyles(() => ({
+  dialogInner: {
+    padding: "25px",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  nutritionBold: {
+    fontWeight: 600,
+  },
+  description: {
+    marginTop: "15px",
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  item: {},
+  ingredients: {
+    textTransform: "capitalize",
+  },
+  iconHover: {
+    cursor: "pointer",
+    "&:hover": {
+      color: "#ff3d00",
+    },
+  },
+}));
+
+const SeeRecipe = ({ recipe }) => {
+  const theme = useTheme();
+  const classes = useStyles();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = React.useState(false);
+  const {
+    name,
+    calories,
+    carbs,
+    createdAt,
+    description,
+    fat,
+    protein,
+    username,
+    ingredients,
+  } = recipe;
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
-    <div className='flex-center pt-2 seeRecipe'>
-      <div id='recipe-container'>
-        <header>
-          <h1 className='pb-2 head'>
-            Recipe Name{" "}
-            <span className='icon'>
-              <BsStar />
-            </span>
-          </h1>
+    <>
+      <Button onClick={handleOpen} variant='outlined' style={{ marginLeft: "auto" }}>
+        See recipe
+      </Button>
 
-          <div className='header-image'>
-            <img src='https://source.unsplash.com/random' alt='' />
-          </div>
-        </header>
+      <Dialog fullWidth maxWidth='md' open={open} onClose={handleClose} fullScreen={fullScreen}>
+        <div className={classes.dialogInner}>
+          <CardHeader
+            avatar={
+              <Avatar
+                aria-label='recipe'
+                src='https://images.unsplash.com/photo-1509967419530-da38b4704bc6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1972&q=80'
+              />
+            }
+            title={
+              <div className={classes.header}>
+                <Typography variant='h5'>{name}</Typography>
+                <LikeButton recipe={recipe} />
+              </div>
+            }
+            subheader={`Created ${dayjs(createdAt).format("MMM YYYY")}, by ${username}`}
+          />
+          <CardMedia
+            className={classes.media}
+            image='https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1531&q=80'
+            title='Paella dish'
+          />
+          <CardContent>
+            <Typography variant='body2' color='textSecondary' component='p' className='mb-2'>
+              <span className={classes.nutritionBold}>Calories</span> {calories}{" "}
+              <span className={classes.nutritionBold}>Carbs</span> {carbs}{" "}
+              <span className={classes.nutritionBold}>Fat</span> {fat}{" "}
+              <span className={classes.nutritionBold}>Protein</span> {protein}
+            </Typography>
 
-        <section id='information' className='pt-2'>
-          <div>
-            <h2>Nutrition</h2>
-            <ul className='pt-1'>
-              <li>550 Calories</li>
-              <li>Carbohydrates</li>
-              <li>Fat</li>
-              <li>Protein</li>
+            <Typography variant='h6' className={classes.description}>
+              Description
+            </Typography>
+
+            <Typography variant='body1' color='textSecondary' component='p'>
+              {description}
+            </Typography>
+
+            <Typography variant='h6' className={classes.description}>
+              Ingredients
+            </Typography>
+            <ul>
+              {ingredients.map((item) => (
+                <li key={item} className={classes.item}>
+                  <Typography
+                    variant='body2'
+                    color='textSecondary'
+                    component='p'
+                    className={classes.ingredients}
+                  >
+                    {item}
+                  </Typography>
+                </li>
+              ))}
             </ul>
-          </div>
-          <div>
-            <h2>Easyness</h2>
-            <ul className='pt-1'>
-              <li>4 Ingredients </li>
-              <li>Fairly easy to make</li>
-            </ul>
-          </div>
-        </section>
 
-        <section id='description' className='pt-2'>
-          <h2>Description</h2>
-          <p className='pt-1'>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat, ipsum, expedita
-            deserunt corrupti porro mollitia asperiores obcaecati ratione blanditiis molestiae vitae
-            tempora recusandae cum aspernatur, totam voluptate perspiciatis praesentium. Enim vero
-            delectus odit voluptatem possimus dolore reprehenderit magni provident, dignissimos eius
-            maiores atque iusto neque ducimus nemo accusamus perspiciatis fugiat laborum
-            repellendus! Temporibus voluptates veritatis rerum sapiente? Impedit aut deserunt dicta
-            quod molestiae, libero ut temporibus, quam voluptatum tenetur omnis necessitatibus odio
-            dolore veritatis quia earum quasi eaque odit inventore.
-          </p>
-        </section>
-
-        <section id='steps' className='my-2'>
-          <h2>Directions</h2>
-          <ul className='mt-2'>
-            <li>
-              <div className='direction-step'>1</div>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta asperiores et
-                numquam obcaecati explicabo odit.
-              </p>
-            </li>
-            <li>
-              <div className='direction-step'>2</div>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta asperiores et
-                numquam obcaecati explicabo odit.
-              </p>
-            </li>
-            <li>
-              <div className='direction-step'>3</div>
-              <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta asperiores et
-                numquam obcaecati explicabo odit.
-              </p>
-            </li>
-          </ul>
-        </section>
-
-        {/* <section id='comments' className='mt-2'>
-          <h2>Comments</h2>
-        </section> */}
-      </div>
-    </div>
+            {!recipe.directions && (
+              <>
+                <Typography variant='h6' className={classes.description}>
+                  Directions
+                </Typography>
+                <ol>
+                  <li>Whisp</li>
+                </ol>
+              </>
+            )}
+          </CardContent>
+          <DialogActions>
+            <Button color='primary' onClick={handleClose}>
+              Close
+            </Button>
+          </DialogActions>
+        </div>
+      </Dialog>
+    </>
   );
 };
 

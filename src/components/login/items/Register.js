@@ -1,110 +1,137 @@
 import React from "react";
-import {
-  AuthCheck,
-  StorageImage,
-  useFirestoreDocData,
-  useUser,
-  useAuth,
-  useFirestore,
-} from "reactfire";
+// MUI stuff
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { CircularProgress } from "@material-ui/core";
 
-const Register = ({
-  handleFormChange,
-  errors,
-  handleChange,
-  handleBlur,
-  authState,
-  passwordMatch,
-}) => {
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "500px",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const Login = ({ handleFormChange, handleChange, loading, onSubmitRegister, errors }) => {
+  const classes = useStyles();
   return (
     <div className='animated bounceInLeft fast'>
-      <h1 className='my-2'>Register To Start Using This App</h1>
-      <form>
-        <div className='inputgroup'>
-          <label htmlFor='registerUsername'>Username</label>
-          <input
-            id='registerUsername'
-            type='text'
-            placeholder='Username'
-            name='username'
-            className={errors.username ? "input-error" : null}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={authState.username}
-          />
-          <div className='form-error my-1'>{errors.username && "Please enter a username"}</div>
-        </div>
-
-        <div className='inputgroup'>
-          <label htmlFor='registerName'>Name</label>
-          <input
-            id='registerName'
-            type='text'
-            placeholder='Name'
-            name='name'
-            className={errors.name ? "input-error" : null}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={authState.name}
-          />
-          <div className='form-error my-1'>{errors.name && "Please enter a name"}</div>
-        </div>
-
-        <div className='inputgroup'>
-          <label htmlFor='registerEmail'>Email</label>
-          <input
-            id='registerEmail'
-            type='email'
-            placeholder='Email'
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component='h1' variant='h5'>
+          Sign up
+        </Typography>
+        <form className={classes.form} noValidate onSubmit={onSubmitRegister}>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='email'
+            label='Email Address'
             name='email'
-            className={errors.email ? "input-error" : null}
-            onBlur={handleBlur}
+            autoComplete='email'
+            autoFocus
             onChange={handleChange}
-            value={authState.email}
+            helperText={errors.email}
+            error={errors.email ? true : false}
           />
-          <div className='form-error my-1'>{errors.email && "Please enter an email"}</div>
-        </div>
-
-        <div className='inputgroup'>
-          <label htmlFor='registerPassword'>Password</label>
-          <input
-            id='registerPassword'
-            type='password'
-            placeholder='Password'
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            id='username'
+            label='Username'
+            name='username'
+            autoComplete='username'
+            onChange={handleChange}
+            helperText={errors.username}
+            error={errors.username ? true : false}
+          />
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
             name='password'
-            className={errors.password ? "input-error" : null}
-            onBlur={handleBlur}
-            onChange={handleChange}
-            value={authState.password}
-          />
-          <div className='form-error my-1'>{errors.password && "Enter a password"}</div>
-        </div>
-
-        <div className='inputgroup'>
-          <label htmlFor='registerPasswordConfirm'>Confirm Password</label>
-          <input
-            id='registerPasswordConfirm'
+            label='Password'
             type='password'
-            placeholder='Confirm Password'
-            name='password2'
-            className={!passwordMatch ? "input-error" : null}
-            onBlur={handleBlur}
+            id='password'
+            autoComplete='current-password'
             onChange={handleChange}
-            value={authState.password2}
+            helperText={errors.password}
+            error={errors.password ? true : false}
           />
-          <div className='form-error my-1'>{!passwordMatch && "Passwords does not match"}</div>
-        </div>
-
-        <button className='btn btn-block'>Register</button>
-      </form>
-
-      <div className='register-text center'>
-        <button className='btn btn-text btn-block my-2' onClick={() => handleFormChange(1)}>
-          Already have an account? Sign in!
-        </button>
+          <TextField
+            variant='outlined'
+            margin='normal'
+            required
+            fullWidth
+            name='confirmPassword'
+            label='Confirm password'
+            type='password'
+            id='confirmPassword'
+            autoComplete='current-password'
+            onChange={handleChange}
+            helperText={errors.confirmPassword}
+            error={errors.confirmPassword ? true : false}
+          />
+          {errors.general && (
+            <Typography variant='body2' color='secondary'>
+              {errors.general}
+            </Typography>
+          )}
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            color='primary'
+            className={classes.submit}
+          >
+            {loading ? <CircularProgress size={30} color='secondary' /> : "Register"}
+          </Button>
+          <Grid container>
+            {/* <Grid item xs>
+              <Link href='#' variant='body2'>
+                Forgot password?
+              </Link>
+            </Grid> */}
+            <Grid item>
+              <Link
+                component={Button}
+                onClick={() => handleFormChange(1)}
+                variant='body2'
+                style={{ textTransform: "none" }}
+              >
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+        </form>
       </div>
     </div>
   );
 };
 
-export default Register;
+export default Login;

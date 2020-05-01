@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import { Layout, Login } from "../components";
+import { loginUser, signupUser } from "../redux/actions/userActions";
 
-const LoginPage = () => {
+const LoginPage = ({ loginUser, ui, signupUser }) => {
+  const history = useHistory();
+  const { loading, errors } = ui;
   const [authState, setAuthState] = useState({
     username: "",
     name: "",
     email: "",
     password: "",
-    password2: "",
-    touched: {
-      username: false,
-      name: false,
-      email: false,
-      password: false,
-      password2: false,
-    },
+    confirmPassword: "",
+    errors: {},
   });
 
   const handleFormChange = (e) => {
@@ -22,13 +22,9 @@ const LoginPage = () => {
     setAuthState({ ...authState, [name]: value });
   };
 
-  const passwordMatch = () => {
-    if (authState.password === authState.password2) {
-      return true;
-    } else {
-      return false;
-    }
-  };
+  useEffect(() => {
+    if (errors) setAuthState({ ...authState, errors });
+  }, [errors]);
 
   const handleClearForm = () => {
     setAuthState({
@@ -37,42 +33,54 @@ const LoginPage = () => {
       email: "",
       password: "",
       password2: "",
-      touched: {
-        username: false,
-        name: false,
-        email: false,
-        password: false,
-        password2: false,
-      },
+      errors: {},
     });
   };
 
-  const handleBlur = (e) => {
-    if (e.target.value === undefined || e.target.value === "") {
-      setAuthState({
-        ...authState,
-        touched: { ...authState.touched, [e.target.name]: true },
-      });
-    } else if (e.target.value) {
-      setAuthState({
-        ...authState,
-        touched: { ...authState.touched, [e.target.name]: false },
-      });
-    }
+  const onSubmitLogin = (e) => {
+    e.preventDefault();
+    loginUser({ email: authState.email, password: authState.password }, history);
+  };
+
+  const onSubmitRegister = (e) => {
+    e.preventDefault();
+    const user = {
+      email: authState.email,
+      password: authState.password,
+      confirmPassword: authState.confirmPassword,
+      username: authState.username,
+    };
+    signupUser(user, history);
   };
 
   return (
     <Layout>
       <Login
         authState={authState}
-        handleBlur={handleBlur}
         handleClearForm={handleClearForm}
         handleChange={handleFormChange}
-        errors={authState.touched}
-        passwordMatch={passwordMatch}
+        errors={authState.errors}
+        onSubmitLogin={onSubmitLogin}
+        onSubmitRegister={onSubmitRegister}
+        loading={loading}
       />
     </Layout>
   );
 };
 
-export default LoginPage;
+LoginPage.propTypes = {
+  ui: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  signupUser: PropTypes.func.isRequired,
+};
+
+const mapState = (state) => ({
+  ui: state.ui,
+});
+
+const mapDispatch = {
+  loginUser,
+  signupUser,
+};
+
+export default connect(mapState, mapDispatch)(LoginPage);

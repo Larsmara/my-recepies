@@ -1,15 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
-import { AuthCheck } from "reactfire";
-import LoginPage from "../../pages/LoginPage";
-import LandingPage from "../../pages/LandingPage";
-import "./index.scss";
+import { Route, Redirect } from "react-router-dom";
 
-const AnimatedRoute = ({ requiresAuth, children, ...other }) => {
+const AnimatedRoute = ({ requiresAuth, authenticated, children, ...other }) => {
   return (
     <Route {...other}>
       <div className='animated fadeIn fast' key={other.path}>
-        {requiresAuth ? <AuthCheck fallback={<LoginPage />}>{children}</AuthCheck> : children}
+        {authenticated ? children : <Redirect to='/login' />}
       </div>
     </Route>
   );

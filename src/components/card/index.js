@@ -1,70 +1,95 @@
 import React from "react";
-import "./index.scss";
-import { BsStar, BsStarFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import dayjs from "dayjs";
+// MUI stuff
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+// Components
+import RecipeDialog from "../seeRecipe";
+import LikeButton from "../likeButton/LikeButton";
 
-const Card = ({ recipe, id }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    marginTop: "20px",
+  },
+  media: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+  },
+  expand: {
+    marginLeft: "auto",
+  },
+  expandOpen: {
+    transform: "rotate(180deg)",
+  },
+  divider: {
+    marginTop: "10px",
+    marginBottom: "10px",
+  },
+  nutritionBold: {
+    fontWeight: 600,
+  },
+}));
+
+export default ({ recipe }) => {
+  const classes = useStyles();
+  const {
+    name,
+    calories,
+    carbs,
+    createdAt,
+    description,
+    fat,
+    protein,
+  } = recipe;
+
   return (
-    <div className='card'>
-      <header className='card-header'>
-        <img src='https://source.unsplash.com/random' alt='' />
-      </header>
+    <Card className={classes.root}>
+      <CardHeader
+        avatar={
+          <Avatar
+            aria-label='recipe'
+            src='https://images.unsplash.com/photo-1509967419530-da38b4704bc6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1972&q=80'
+          />
+        }
+        title={name}
+        subheader={dayjs(createdAt).format("MMM YYYY")}
+      />
+      <CardMedia
+        className={classes.media}
+        image='https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-1.2.1&auto=format&fit=crop&w=1531&q=80'
+        title='Paella dish'
+      />
+      <CardContent>
+        <Typography variant='body2' color='textSecondary' component='p' className='mb-2'>
+          <span className={classes.nutritionBold}>Calories</span> {calories}{" "}
+          <span className={classes.nutritionBold}>Carbs</span> {carbs}{" "}
+          <span className={classes.nutritionBold}>Fat</span> {fat}{" "}
+          <span className={classes.nutritionBold}>Protein</span> {protein}
+        </Typography>
 
-      <main className='card-content'>
-        <h2 className='card-title'>Title</h2>
+        <Divider variant='middle' className={classes.divider} />
 
-        <div className='nutrients'>
-          <div className='calories'>
-            <i className='far fa-angry'></i>
-            <span>650</span>
-          </div>
-
-          <div className='carbs'>
-            <i className='far fa-angry'></i>
-            <span>265</span>
-          </div>
-
-          <div className='proteins'>
-            <i className='far fa-smile-beam'></i>
-            <span>265</span>
-          </div>
-
-          <div className='fat'>
-            <i className='far fa-angry'></i>
-            <span>265</span>
-          </div>
-        </div>
-
-        <div className='ingredients'>
-          <div className='number-of-ingredients'>
-            <i className='fas fa-book-open'></i>
-            <span>Ingredients: 7</span>
-          </div>
-
-          <div className='complexity'>
-            <i className='fas fa-signal'></i>
-            <span>Difficulty: 4</span>
-          </div>
-        </div>
-
-        <div className='description'>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem sequi dignissimos,
-            impedit rem deserunt, sapiente eligendi nesciunt obcaecati corrupti debitis nihil.
-            Quibusdam illum officia pariatur alias neque quia aliquam enim, quidem dolor rem
-            corporis a. Cumque corporis atque magnam nobis?
-          </p>
-        </div>
-      </main>
-
-      <footer className='card-footer'>
-        <div className='set-favorite'>{recipe && recipe.starred ? <BsStarFill /> : <BsStar />}</div>
-        <Link className='view-recipe btn btn-primary' to={`/recipe/${id}`}>
-          View Recipe
-        </Link>
-      </footer>
-    </div>
+        <Typography variant='body2' color='textSecondary' component='p'>
+          {description}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <LikeButton recipe={recipe} />
+        {/* <IconButton aria-label='share'>
+          <ShareIcon />
+        </IconButton> */}
+        <RecipeDialog aria-label='show recipe' recipe={recipe}>
+          See Recipe
+        </RecipeDialog>
+      </CardActions>
+    </Card>
   );
 };
-
-export default Card;

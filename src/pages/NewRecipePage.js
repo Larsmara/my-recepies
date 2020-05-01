@@ -9,15 +9,7 @@ const NewRecipePage = () => {
     protein: "",
     fat: "",
     description: "",
-    touched: {
-      name: false,
-      calories: false,
-      carbs: false,
-      protein: false,
-      fat: false,
-      items: false,
-      description: false,
-    },
+    errors: {}
   });
 
   const [ingredients, setIngredients] = useState([]);
@@ -54,31 +46,9 @@ const NewRecipePage = () => {
       protein: "",
       fat: "",
       description: "",
-      touched: {
-        name: false,
-        calories: false,
-        carbs: false,
-        protein: false,
-        fat: false,
-        items: false,
-        description: false,
-      },
+      errors: {}
     });
     setIngredients([]);
-  };
-
-  const handleBlur = (e) => {
-    if (e.target.value === undefined || e.target.value === "") {
-      setFormState({
-        ...formState,
-        touched: { ...formState.touched, [e.target.name]: true },
-      });
-    } else if (e.target.value) {
-      setFormState({
-        ...formState,
-        touched: { ...formState.touched, [e.target.name]: false },
-      });
-    }
   };
 
   return (
@@ -90,7 +60,6 @@ const NewRecipePage = () => {
         ingredient={ingredient}
         ingredients={ingredients}
         handleRemove={handleRemoveIngredient}
-        handleBlur={handleBlur}
         errors={formState.touched}
         formState={formState}
         handleClear={handleClearForm}

@@ -1,12 +1,18 @@
 import React from "react";
-import { Layout, Card, RecipesList } from "../components";
+import { Layout, RecipesList } from "../components";
+import { connect } from "react-redux";
 
-const FavoritesPage = () => {
+const FavoritesPage = ({ favorites }) => {
+  console.log(favorites);
   return (
     <Layout title='My Favorite Recipes'>
-      <RecipesList />
+      <RecipesList recipes={favorites} />
     </Layout>
   );
 };
 
-export default FavoritesPage;
+const mapState = (state) => ({
+  favorites: state.data.recipes.filter((item) => item.favorite === true),
+});
+
+export default connect(mapState)(FavoritesPage);

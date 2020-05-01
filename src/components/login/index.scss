@@ -1,33 +1,3 @@
-@import "../../styles/variables";
-
-.login-form {
-  height: 100%;
-  background-image: url("../../images/forms.svg");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: bottom 2rem right 1rem;
-
-  h1 {
-    text-align: center;
-    font-size: 3rem;
-  }
-
-  form {
-    width: 40rem;
-    margin: 0 auto;
-  }
-}
-
-.register-text {
-  width: 40rem;
-}
-
-/* Social Login */
-
-.social-login {
-  width: 40rem;
-}
-
 /* Divider */
 .hr-text {
   line-height: 1em;
@@ -59,12 +29,7 @@
     padding: 0 0.5em;
     line-height: 1.5em;
     // this is really the only tricky part, you need to specify the background color of the container element...
-    color: set-text-color($background);
-    background-color: $background;
+    color: "#333";
+    background-color: "#f4f4f4";
   }
-}
-
-.btn-icon-google {
-  font-size: 2rem;
-  vertical-align: middle;
 }

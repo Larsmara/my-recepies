@@ -1,12 +1,17 @@
 import React from "react";
 import { Layout, RecipesList } from "../components";
+import { connect } from "react-redux";
 
-const RecipesPage = () => {
+const RecipesPage = ({ recipes }) => {
   return (
     <Layout title='My Saved Recipes'>
-      <RecipesList />
+      <RecipesList recipes={recipes} />
     </Layout>
   );
 };
 
-export default RecipesPage;
+const mapState = (state) => ({
+  recipes: state.data.recipes,
+});
+
+export default connect(mapState)(RecipesPage);

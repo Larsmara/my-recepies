@@ -1,20 +1,29 @@
 import React from "react";
 import { Card } from "../";
 import "./index.scss";
+// MUI stuff
+import GridList from "@material-ui/core/GridList";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
-const GenerateMockCards = () => {
-  let cards = [];
-  for (let i = 0; i < 10; i++) {
-    cards.push(<Card key={i} id={i} />);
-  }
-  return cards;
-};
+const useStyles = makeStyles(() => ({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    overflow: "hidden",
+  },
+}));
 
-const RecipesList = () => {
+const RecipesList = ({ recipes }) => {
+  const classes = useStyles();
+  console.log(recipes);
+
   return (
-    <div className='recipe-grid-list'>
-      <GenerateMockCards />
-    </div>
+    <GridList className={classes.root} cols={3} spacing={6}>
+      {recipes.map((item) => (
+        <Card key={item.name} recipe={item} />
+      ))}
+    </GridList>
   );
 };
 

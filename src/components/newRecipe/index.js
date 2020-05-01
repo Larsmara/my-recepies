@@ -1,6 +1,37 @@
 import React from "react";
-import "./index.scss";
-import Ingredient from "./ingredientItem";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
+import Chip from "@material-ui/core/Chip";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "500px",
+  },
+  chips: {
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+const MoreButton = ({ onClick }) => (
+  <IconButton onClick={onClick}>
+    <AddIcon />
+  </IconButton>
+);
 
 const AddNewRecipe = ({
   handleChange,
@@ -8,142 +39,142 @@ const AddNewRecipe = ({
   handleIngredientChange,
   handleAddIngredient,
   handleRemove,
-  handleBlur,
   ingredient,
   ingredients,
-  errors,
   formState,
 }) => {
+  const classes = useStyles();
   return (
-    <div className='new-recipe-form'>
-      <div className='form'>
-        <h2 className='my-2'>Add a new recipe!</h2>
-        <div className='inputgroup'>
-          <label htmlFor=''>Recipe Name</label>
-          <input
+    <Grid container justify='center'>
+      <div className={classes.paper}>
+        <Typography variant='h2' color='textPrimary' component='h2'>
+          Add a new recipe!
+        </Typography>
+        <form noValidate>
+          <TextField
+            id='inputName'
             type='text'
-            placeholder='Name of recipe'
+            placeholder='Recipe name'
             name='name'
-            className={errors.name ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Recipe name'
             onChange={handleChange}
             value={formState.name}
+            fullWidth
+            error={formState.errors.name ? true : false}
+            helperText={formState.errors.name}
+            className={classes.submit}
           />
-          <div className='form-error my-1'>{errors.name && "Please enter a name"}</div>
-        </div>
 
-        <div className='inputgroup'>
-          <label htmlFor='inputCalories'>Calories</label>
-          <input
+          <TextField
             id='inputCalories'
             type='number'
             placeholder='Calories'
             min='1'
             max='3000'
             name='calories'
-            className={errors.calories ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Calories'
             onChange={handleChange}
             value={formState.calories}
+            fullWidth
+            error={formState.errors.calories ? true : false}
+            helperText={formState.errors.calories}
           />
-          <div className='form-error my-1'>{errors.calories && "Please enter a number"}</div>
-        </div>
 
-        <div className='inputgroup'>
-          <label htmlFor='inputCarbs'>Carbohydrates</label>
-          <input
+          <TextField
             id='inputCarbs'
             type='number'
             placeholder='Carbohydrates'
             min='0'
             max='1000'
             name='carbs'
-            className={errors.carbs ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Carbohydrates'
             onChange={handleChange}
             value={formState.carbs}
+            fullWidth
+            error={formState.errors.carbs ? true : false}
+            helperText={formState.errors.carbs}
+            className={classes.submit}
           />
-          <div className='form-error my-1'>{errors.carbs && "Please enter a number"}</div>
-        </div>
 
-        <div className='inputgroup'>
-          <label htmlFor='inputProtein'>Protein</label>
-          <input
+          <TextField
             id='inputProtein'
             type='number'
             placeholder='Protein'
             min='0'
             max='1000'
             name='protein'
-            className={errors.protein ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Proteins'
             onChange={handleChange}
             value={formState.protein}
+            fullWidth
+            error={formState.errors.protein ? true : false}
+            helperText={formState.errors.protein}
           />
-          <div className='form-error my-1'>{errors.protein && "Please enter a number"}</div>
-        </div>
 
-        <div className='inputgroup'>
-          <label htmlFor='inputFat'>Fat</label>
-          <input
+          <TextField
             id='inputFat'
             type='text'
             placeholder='Fat'
             min='0'
             max='1000'
             name='fat'
-            className={errors.fat ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Fat'
             onChange={handleChange}
             value={formState.fat}
+            fullWidth
+            error={formState.errors.fat ? true : false}
+            helperText={formState.errors.fat}
+            className={classes.submit}
           />
-          <div className='form-error my-1'>{errors.fat && "Please enter a number"}</div>
-        </div>
 
-        <div className='inputgroup input-with-button'>
-          <label htmlFor='inputIngredients'>Ingredients</label>
-          <input
+          <TextField
             id='inputIngredients'
             type='text'
             placeholder='Ingredients'
             value={ingredient}
             name='items'
-            className={errors.items ? "input-error" : null}
-            onBlur={handleBlur}
+            label='Ingredients'
+            fullWidth
+            error={formState.errors.ingredients ? true : false}
+            helperText={formState.errors.ingredients}
             onChange={handleIngredientChange}
+            InputProps={{ endAdornment: <MoreButton onClick={handleAddIngredient} /> }}
           />
-          <button className='btn btn-inside' onClick={handleAddIngredient}>
-            Add Another
-          </button>
-          <div className='form-error my-1'>{errors.items && "Please add some ingredients"}</div>
-          <div className='my-1'>
+          <div className={classes.chips}>
             {ingredients.map((item, index) => (
-              <Ingredient key={index} handleRemove={handleRemove}>
-                {item}
-              </Ingredient>
+              <Chip label={item} onDelete={handleRemove} color='primary' />
             ))}
           </div>
-        </div>
 
-        <div className='inputgroup'>
-          <label htmlFor='inputDescription'>Description</label>
-          <textarea
+          <TextField
             id='inputDescription'
             name='description'
+            label='Description'
             onChange={handleChange}
-            className={errors.description ? "input-error" : null}
-            onBlur={handleBlur}
             value={formState.description}
-          ></textarea>
-          <div className='form-error my-1'>{errors.description && "Please add a description"}</div>
-        </div>
+            fullWidth
+            multiline
+            rows={3}
+            error={formState.errors.fat ? true : false}
+            helperText={formState.errors.fat}
+            className={classes.submit}
+          />
 
-        <button className='btn btn-block my-2'>Add</button>
-        <button className='btn btn-text btn-error btn-block error-text' onClick={handleClear}>
-          Clear
-        </button>
+          <Button
+            type='submit'
+            color='primary'
+            variant='contained'
+            fullWidth
+            className={classes.submit}
+          >
+            Add
+          </Button>
+          <Button color='secondary' fullWidth onClick={handleClear}>
+            Clear
+          </Button>
+        </form>
       </div>
-    </div>
+    </Grid>
   );
 };
 
