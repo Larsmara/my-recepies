@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
+import { Editor } from 'draft-js';
 import React from 'react';
 
 const useStyles = makeStyles(theme => ({
@@ -41,7 +42,9 @@ const AddNewRecipe = ({
   handleRemove,
   ingredient,
   ingredients,
-  formState
+  formState,
+  editorState,
+  setEditorState
 }) => {
   const classes = useStyles();
   return (
@@ -162,6 +165,9 @@ const AddNewRecipe = ({
               />
             ))}
           </div>
+          <div style={{ marginTop: '20px' }}>
+            <Editor editorState={editorState} onChange={setEditorState} />
+          </div>
 
           <TextField
             id='inputDescription'
@@ -174,7 +180,6 @@ const AddNewRecipe = ({
             rows={3}
             error={formState.errors.fat ? true : false}
             helperText={formState.errors.fat}
-            className={classes.submit}
           />
 
           <Button type='submit' color='primary' variant='contained' fullWidth className={classes.submit}>

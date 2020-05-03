@@ -1,3 +1,4 @@
+import { EditorState } from 'draft-js';
 import React, { useState } from 'react';
 import { AddNewRecipe, Layout } from '../components';
 
@@ -11,6 +12,8 @@ const NewRecipePage = () => {
     description: '',
     errors: {}
   });
+
+  const [editorState, setEditorState] = React.useState(EditorState.createEmpty());
 
   const [ingredients, setIngredients] = useState([]);
   const [ingredient, setIngredient] = useState({
@@ -57,6 +60,8 @@ const NewRecipePage = () => {
   return (
     <Layout>
       <AddNewRecipe
+        editorState={editorState}
+        setEditorState={setEditorState}
         handleChange={handleFormChange}
         handleIngredientChange={handleIngredientChange}
         handleAddIngredient={handleAddIngredient}
