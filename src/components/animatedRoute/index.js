@@ -1,11 +1,11 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
 const AnimatedRoute = ({ requiresAuth, authenticated, children, ...other }) => {
   return (
     <Route {...other}>
       <div className='animated fadeIn fast' key={other.path}>
-        {authenticated ? children : <Redirect to='/login' />}
+        {children}
       </div>
     </Route>
   );

@@ -1,17 +1,17 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import Container from '@material-ui/core/Container';
 // MUI stuff
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { useLocation } from 'react-router-dom';
 // Components
-import Navbar from "./Navbar";
+import Navbar from './Navbar';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(3)
   },
-  offset: theme.mixins.toolbar,
+  offset: theme.mixins.toolbar
 }));
 
 const Layout = ({ title, children, authenticated }) => {

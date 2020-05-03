@@ -1,51 +1,54 @@
-import React, { useState } from "react";
-import { Layout, AddNewRecipe } from "../components";
+import React, { useState } from 'react';
+import { AddNewRecipe, Layout } from '../components';
 
 const NewRecipePage = () => {
   const [formState, setFormState] = useState({
-    name: "",
-    calories: "",
-    carbs: "",
-    protein: "",
-    fat: "",
-    description: "",
+    name: '',
+    calories: '',
+    carbs: '',
+    protein: '',
+    fat: '',
+    description: '',
     errors: {}
   });
 
   const [ingredients, setIngredients] = useState([]);
-  const [ingredient, setIngredient] = useState("");
+  const [ingredient, setIngredient] = useState({
+    ingredientName: '',
+    ingredientAmount: ''
+  });
 
-  const handleFormChange = (e) => {
+  const handleFormChange = e => {
     const { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
 
-  const handleIngredientChange = (e) => {
-    const { value } = e.target;
-    setIngredient(value);
+  const handleIngredientChange = e => {
+    const { name, value } = e.target;
+    setIngredient({ ...ingredient, [name]: value });
   };
 
   const handleAddIngredient = () => {
-    if (ingredient !== "") {
+    if (ingredient !== '') {
       setIngredients([...ingredients, ingredient]);
-      setTimeout(() => setIngredient(""), 200);
+      setTimeout(() => setIngredient({ ingredientName: '', ingredientAmount: '' }), 200);
     } else {
-      alert("Enter ingredient to add");
+      alert('Enter ingredient to add');
     }
   };
 
-  const handleRemoveIngredient = (ingredient) => {
-    setIngredients(ingredients.filter((item) => item !== ingredient));
+  const handleRemoveIngredient = ingredient => {
+    setIngredients(ingredients.filter(item => item.ingredientName !== ingredient));
   };
 
   const handleClearForm = () => {
     setFormState({
-      name: "",
-      calories: "",
-      carbs: "",
-      protein: "",
-      fat: "",
-      description: "",
+      name: '',
+      calories: '',
+      carbs: '',
+      protein: '',
+      fat: '',
+      description: '',
       errors: {}
     });
     setIngredients([]);

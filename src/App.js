@@ -14,7 +14,7 @@ const SeeRecipe = React.lazy(() => import("./pages/RecipePage"));
 const App = ({ authenticated }) => {
   const location = useLocation();
   React.useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 1);
   }, [location.pathname]);
 
   return (
