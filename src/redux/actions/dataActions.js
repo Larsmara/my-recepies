@@ -13,7 +13,7 @@ import {
 } from "../types";
 import axios from "axios";
 
-export const getScreams = () => (dispatch) => {
+export const getRecipes = () => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get("/recipes")
@@ -41,13 +41,14 @@ export const getRecipe = (recipeId) => (dispatch) => {
     });
 };
 
-export const postRecipe = (recipe) => (dispatch) => {
+export const postRecipe = (recipe, callback) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
     .post("/recipe", recipe)
     .then((res) => {
       dispatch({ type: POST_RECIPE, payload: res.data });
       dispatch({ type: CLEAR_ERRORS });
+      callback("success");
     })
     .catch((error) => {
       console.log(error);

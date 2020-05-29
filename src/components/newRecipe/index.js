@@ -1,31 +1,31 @@
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import AddIcon from '@material-ui/icons/Add';
-import { Editor } from 'draft-js';
-import React from 'react';
+import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import makeStyles from "@material-ui/core/styles/makeStyles";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import AddIcon from "@material-ui/icons/Add";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import React from "react";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    maxWidth: '500px'
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    maxWidth: "500px",
   },
   chips: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(0.5)
-    }
+    display: "flex",
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
-  }
+    margin: theme.spacing(3, 0, 2),
+  },
 }));
 
 const MoreButton = ({ onClick }) => (
@@ -43,8 +43,8 @@ const AddNewRecipe = ({
   ingredient,
   ingredients,
   formState,
-  editorState,
-  setEditorState
+  handleSubmit,
+  loading,
 }) => {
   const classes = useStyles();
   return (
@@ -53,7 +53,7 @@ const AddNewRecipe = ({
         <Typography variant='h2' color='textPrimary' component='h2'>
           Add a new recipe!
         </Typography>
-        <form noValidate>
+        <form noValidate onSubmit={handleSubmit}>
           <TextField
             id='inputName'
             type='text'
@@ -142,7 +142,7 @@ const AddNewRecipe = ({
               helperText={formState.errors.ingredients}
               onChange={handleIngredientChange}
             />
-            <span style={{ marginLeft: '10px', marginTop: '20px', marginRight: '10px' }}>&</span>
+            <span style={{ marginLeft: "10px", marginTop: "20px", marginRight: "10px" }}>&</span>
             <TextField
               id='inputIngredientsAmount'
               type='text'
@@ -165,9 +165,20 @@ const AddNewRecipe = ({
               />
             ))}
           </div>
-          <div style={{ marginTop: '20px' }}>
-            <Editor editorState={editorState} onChange={setEditorState} />
-          </div>
+
+          <TextField
+            id='inputDirections'
+            name='directions'
+            label='Directions (Separete directions by pressing Enter / using a new line)'
+            onChange={handleChange}
+            value={formState.directions}
+            fullWidth
+            multiline
+            rows={3}
+            error={formState.errors.directions ? true : false}
+            helperText={formState.errors.directions}
+            className={classes.submit}
+          />
 
           <TextField
             id='inputDescription'
@@ -178,12 +189,23 @@ const AddNewRecipe = ({
             fullWidth
             multiline
             rows={3}
-            error={formState.errors.fat ? true : false}
-            helperText={formState.errors.fat}
+            error={formState.errors.description ? true : false}
+            helperText={formState.errors.description}
+            className={classes.submit}
           />
 
-          <Button type='submit' color='primary' variant='contained' fullWidth className={classes.submit}>
-            Add
+          <Button
+            type='submit'
+            color='primary'
+            variant='contained'
+            fullWidth
+            className={classes.submit}
+          >
+            {loading ? (
+              <CircularProgress size={30} className={classes.progress} color='secondary' />
+            ) : (
+              "Post recipe"
+            )}
           </Button>
           <Button color='secondary' fullWidth onClick={handleClear}>
             Clear

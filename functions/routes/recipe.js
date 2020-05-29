@@ -31,8 +31,10 @@ exports.createRecipe = (req, res) => {
     protein: req.body.protein,
     fat: req.body.fat,
     description: req.body.description,
+    directions: req.body.directions,
     username: req.user.username,
     profileImg: req.user.profileImg,
+    ingredients: req.body.ingredients,
     createdAt: new Date().toISOString(),
   };
 

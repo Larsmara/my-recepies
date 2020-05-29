@@ -9,8 +9,9 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     overflow: "hidden",
+    paddingBottom: "10px",
   },
 }));
 
